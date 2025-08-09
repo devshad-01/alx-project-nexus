@@ -1,0 +1,110 @@
+{
+  "test_run": {
+    "timestamp": "2025-08-09T14:12:17.384960",
+    "base_url": "http://localhost:8000/api",
+    "total_tests": 14,
+    "passed": 12,
+    "failed": 2,
+    "skipped": 0
+  },
+  "test_results": [
+    {
+      "timestamp": "14:12:09",
+      "endpoint": "/schema/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "14:12:09",
+      "endpoint": "/docs/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "14:12:09",
+      "endpoint": "/redoc/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "14:12:11",
+      "endpoint": "/auth/register/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "User registered successfully. Token received: Yes"
+    },
+    {
+      "timestamp": "14:12:12",
+      "endpoint": "/auth/login/",
+      "method": "POST",
+      "status": "PASS",
+      "details": "Login successful"
+    },
+    {
+      "timestamp": "14:12:12",
+      "endpoint": "/auth/profile/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Profile retrieved successfully"
+    },
+    {
+      "timestamp": "14:12:15",
+      "endpoint": "/products/categories/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Categories retrieved. Count: 4"
+    },
+    {
+      "timestamp": "14:12:16",
+      "endpoint": "/products/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Products retrieved. Count: 20"
+    },
+    {
+      "timestamp": "14:12:16",
+      "endpoint": "/products/53/",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Status: 404"
+    },
+    {
+      "timestamp": "14:12:16",
+      "endpoint": "/cart/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Cart retrieved successfully"
+    },
+    {
+      "timestamp": "14:12:17",
+      "endpoint": "/cart/add/",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Status: 500, Response: {\"error\":\"Add to cart failed due to server error\"}"
+    },
+    {
+      "timestamp": "14:12:17",
+      "endpoint": "/orders/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Orders retrieved successfully"
+    },
+    {
+      "timestamp": "14:12:17",
+      "endpoint": "/non-existent-endpoint/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "404 error handled correctly"
+    },
+    {
+      "timestamp": "14:12:17",
+      "endpoint": "/auth/profile/ (no auth)",
+      "method": "GET",
+      "status": "PASS",
+      "details": "401 unauthorized handled correctly"
+    }
+  ]
+}
