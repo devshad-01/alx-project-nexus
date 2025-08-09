@@ -28,12 +28,12 @@ class CartItemSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'product', 'product_name', 'product_price', 'product_sku',
             'product_details', 'quantity', 'total_price', 'is_available',
-            'stock_available', 'created_at', 'updated_at'
+            'stock_available', 'added_at', 'updated_at'
         ]
         read_only_fields = [
             'id', 'product_name', 'product_price', 'product_sku', 
             'product_details', 'total_price', 'is_available', 
-            'stock_available', 'created_at', 'updated_at'
+            'stock_available', 'added_at', 'updated_at'
         ]
 
     def get_total_price(self, obj):
@@ -90,7 +90,7 @@ class CartSerializer(serializers.ModelSerializer):
     Comprehensive serializer for shopping carts
     """
     user_name = serializers.CharField(source='user.get_full_name', read_only=True)
-    cart_items = CartItemSerializer(many=True, read_only=True)
+    items = CartItemSerializer(many=True, read_only=True)
     total_items = serializers.SerializerMethodField()
     total_amount = serializers.SerializerMethodField()
     has_unavailable_items = serializers.SerializerMethodField()
@@ -98,11 +98,11 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = [
-            'id', 'user', 'user_name', 'cart_items', 'total_items',
+            'id', 'user', 'user_name', 'items', 'total_items',
             'total_amount', 'has_unavailable_items', 'created_at', 'updated_at'
         ]
         read_only_fields = [
-            'id', 'user', 'user_name', 'cart_items', 'total_items',
+            'id', 'user', 'user_name', 'items', 'total_items',
             'total_amount', 'has_unavailable_items', 'created_at', 'updated_at'
         ]
 
@@ -110,7 +110,7 @@ class CartSerializer(serializers.ModelSerializer):
         """
         Get total number of items in cart
         """
-        return sum(item.quantity for item in obj.cart_items.all())
+        return sum(item.quantity for item in obj.items.all())
 
     def get_total_amount(self, obj):
         """
@@ -118,7 +118,7 @@ class CartSerializer(serializers.ModelSerializer):
         """
         return sum(
             item.quantity * item.product.price 
-            for item in obj.cart_items.all() 
+            for item in obj.items.all() 
             if item.product.is_active
         )
 
@@ -128,7 +128,7 @@ class CartSerializer(serializers.ModelSerializer):
         """
         return any(
             not item.product.is_active or item.product.stock_quantity == 0
-            for item in obj.cart_items.all()
+            for item in obj.items.all()
         )
 
 
@@ -163,7 +163,7 @@ class AddToCartSerializer(serializers.Serializer):
             user = self.context['request'].user
             cart = Cart.objects.get_or_create(user=user)[0]
             
-            existing_item = cart.cart_items.filter(product=product).first()
+            existing_item = cart.items.filter(product=product).first()
             current_quantity = existing_item.quantity if existing_item else 0
             total_quantity = current_quantity + quantity
             
@@ -261,7 +261,7 @@ class CartSummarySerializer(serializers.ModelSerializer):
         """
         Get total number of items in cart
         """
-        return sum(item.quantity for item in obj.cart_items.all())
+        return sum(item.quantity for item in obj.items.all())
 
     def get_total_amount(self, obj):
         """
@@ -269,7 +269,7 @@ class CartSummarySerializer(serializers.ModelSerializer):
         """
         return sum(
             item.quantity * item.product.price 
-            for item in obj.cart_items.all() 
+            for item in obj.items.all() 
             if item.product.is_active and item.product.stock_quantity >= item.quantity
         )
 
@@ -278,7 +278,7 @@ class CartSummarySerializer(serializers.ModelSerializer):
         Get count of available items
         """
         return sum(
-            item.quantity for item in obj.cart_items.all()
+            item.quantity for item in obj.items.all()
             if item.product.is_active and item.product.stock_quantity >= item.quantity
         )
 
@@ -287,7 +287,7 @@ class CartSummarySerializer(serializers.ModelSerializer):
         Get count of unavailable items
         """
         return sum(
-            item.quantity for item in obj.cart_items.all()
+            item.quantity for item in obj.items.all()
             if not item.product.is_active or item.product.stock_quantity < item.quantity
         )
 
@@ -313,7 +313,7 @@ class ClearCartSerializer(serializers.Serializer):
         user = self.context['request'].user
         try:
             cart = Cart.objects.get(user=user)
-            cart.cart_items.all().delete()
+            cart.items.all().delete()
             return cart
         except Cart.DoesNotExist:
             # Cart doesn't exist, nothing to clear

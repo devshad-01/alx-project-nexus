@@ -8,6 +8,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from drf_spectacular.utils import extend_schema_field
 from .models import User
 
 
@@ -111,12 +112,14 @@ class UserSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id', 'username', 'date_joined', 'last_login']
 
+    @extend_schema_field(serializers.CharField)
     def get_full_name(self, obj):
         """
         Get user's full name
         """
         return f"{obj.first_name} {obj.last_name}".strip()
 
+    @extend_schema_field(serializers.IntegerField)
     def get_age(self, obj):
         """
         Calculate user's age from date of birth
@@ -134,8 +137,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'email', 'first_name', 'last_name',
-            'phone_number', 'date_of_birth'
+            'email', 'first_name', 'last_name'
         ]
 
     def validate_email(self, value):
