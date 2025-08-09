@@ -16,5 +16,8 @@ export DJANGO_SETTINGS_MODULE=config.settings.production
 # Collect static files
 python manage.py collectstatic --no-input
 
-# Run database migrations
-python manage.py migrate
+# Run database migrations in correct order
+python manage.py migrate auth
+python manage.py migrate contenttypes
+python manage.py migrate authentication
+python manage.py migrate --run-syncdb
