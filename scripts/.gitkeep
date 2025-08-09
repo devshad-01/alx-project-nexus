@@ -1,0 +1,4 @@
+# This file ensures the scripts directory is tracked by Git
+# while the actual script files are gitignored.
+# 
+# The directory structure is important for the project organization.
