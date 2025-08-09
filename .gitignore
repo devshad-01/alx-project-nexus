@@ -55,7 +55,6 @@ Thumbs.db
 # Project specific
 staticfiles/
 media/
-migrations/
 
 # Guides and mentor materials (should not be pushed)
 .github_guides/
