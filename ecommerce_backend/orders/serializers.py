@@ -105,7 +105,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'id', 'user', 'user_name', 'user_email', 'order_number',
             'status', 'status_display', 'total_amount', 'total_items',
             'shipping_address', 'billing_address', 'payment_method',
-            'payment_status', 'notes', 'order_items',
+            'notes', 'order_items',
             'created_at', 'updated_at'
         ]
         read_only_fields = [
@@ -223,7 +223,7 @@ class OrderUpdateSerializer(serializers.ModelSerializer):
         model = Order
         fields = [
             'status', 'shipping_address', 'billing_address',
-            'payment_method', 'payment_status', 'notes'
+            'payment_method', 'notes'
         ]
 
     def validate_status(self, value):
@@ -321,7 +321,7 @@ class OrderHistorySerializer(serializers.ModelSerializer):
         fields = [
             'id', 'order_number', 'status', 'status_display',
             'total_amount', 'total_items', 'payment_method',
-            'payment_status', 'order_items', 'created_at'
+            'order_items', 'created_at'
         ]
 
     def get_total_items(self, obj):

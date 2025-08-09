@@ -15,6 +15,9 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 import logging
 
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiResponse, OpenApiParameter
+from drf_spectacular.openapi import OpenApiTypes
+
 from .models import Category, Product, ProductImage, Review
 from .serializers import (
     CategorySerializer,
@@ -39,6 +42,92 @@ class CategoryListView(generics.ListCreateAPIView):
     """
     queryset = Category.objects.filter(is_active=True).order_by('name')
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    @extend_schema(
+        summary='List Categories',
+        description='''
+        Get all active product categories.
+        
+        **Public Endpoint**: No authentication required for viewing categories.
+        
+        Categories are returned with their product counts and hierarchical information.
+        ''',
+        responses={
+            200: OpenApiResponse(
+                description='List of categories',
+                examples=[
+                    OpenApiExample(
+                        'Categories List',
+                        value=[
+                            {
+                                'id': 1,
+                                'name': 'Electronics',
+                                'description': 'Electronic devices and gadgets',
+                                'slug': 'electronics',
+                                'is_active': True,
+                                'product_count': 25,
+                                'created_at': '2025-08-09T10:00:00Z'
+                            },
+                            {
+                                'id': 2,
+                                'name': 'Clothing',
+                                'description': 'Fashion and apparel',
+                                'slug': 'clothing',
+                                'is_active': True,
+                                'product_count': 150,
+                                'created_at': '2025-08-09T10:00:00Z'
+                            }
+                        ]
+                    )
+                ]
+            )
+        }
+    )
+    def get(self, request, *args, **kwargs):
+        """List all categories"""
+        return super().get(request, *args, **kwargs)
+    
+    @extend_schema(
+        summary='Create Category',
+        description='''
+        Create a new product category.
+        
+        **Admin Only**: Requires admin authentication.
+        ''',
+        examples=[
+            OpenApiExample(
+                'Create Category',
+                value={
+                    'name': 'Home & Garden',
+                    'description': 'Home improvement and garden supplies',
+                    'is_active': True
+                },
+                request_only=True,
+            ),
+        ],
+        responses={
+            201: OpenApiResponse(
+                description='Category created successfully',
+                examples=[
+                    OpenApiExample(
+                        'Success Response',
+                        value={
+                            'id': 3,
+                            'name': 'Home & Garden',
+                            'description': 'Home improvement and garden supplies',
+                            'slug': 'home-garden',
+                            'is_active': True,
+                            'product_count': 0,
+                            'created_at': '2025-08-09T10:30:00Z'
+                        }
+                    )
+                ]
+            ),
+            403: OpenApiResponse(
+                description='Permission denied - Admin access required'
+            )
+        }
+    )
     
     def get_serializer_class(self):
         """Use different serializers for different actions"""

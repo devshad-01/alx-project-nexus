@@ -178,16 +178,106 @@ SIMPLE_JWT = {
 
 # API Documentation
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'E-Commerce Backend API',
-    'DESCRIPTION': 'A comprehensive e-commerce backend with REST and GraphQL APIs',
+    'TITLE': 'ALX Project Nexus E-Commerce API',
+    'DESCRIPTION': '''
+    ## 🛍️ E-Commerce Backend API
+    
+    A comprehensive and modern e-commerce backend API built with Django REST Framework.
+    
+    ### 🚀 Quick Start
+    
+    1. **Register an account** using `/api/auth/register/`
+    2. **Login** with `/api/auth/login/` to get JWT tokens
+    3. **Browse products** and **categories** (public endpoints)
+    4. **Add items to cart** and **place orders** (authenticated)
+    
+    ### 🔐 Authentication
+    
+    Most endpoints require JWT authentication. After login, include the access token in requests:
+    ```
+    Authorization: Bearer <your_access_token>
+    ```
+    
+    ### 📱 API Features
+    
+    - **User Management**: Registration, authentication, profile management
+    - **Product Catalog**: Categories, products with images and reviews
+    - **Shopping Cart**: Add, update, remove items with real-time calculations
+    - **Order Management**: Create orders, track status, view history
+    - **Reviews & Ratings**: Product reviews with approval system
+    
+    ### 🛠️ Response Format
+    
+    All responses follow consistent JSON format with proper HTTP status codes.
+    Validation errors include detailed field-specific messages.
+    ''',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api/',
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SORT_OPERATIONS': False,
+    
+    # Swagger UI Configuration
     'SWAGGER_UI_SETTINGS': {
         'deepLinking': True,
         'persistAuthorization': True,
         'displayOperationId': True,
+        'displayRequestDuration': True,
+        'docExpansion': 'list',
+        'filter': True,
+        'showExtensions': True,
+        'showCommonExtensions': True,
+        'tryItOutEnabled': True,
     },
-    'COMPONENT_SPLIT_REQUEST': True,
+    
+    # ReDoc Configuration
+    'REDOC_UI_SETTINGS': {
+        'nativeScrollbars': True,
+        'theme': {
+            'typography': {
+                'fontSize': '14px',
+                'lineHeight': '1.5em',
+                'code': {
+                    'fontSize': '13px',
+                },
+                'headings': {
+                    'fontFamily': 'Montserrat, sans-serif',
+                    'fontWeight': '600',
+                }
+            },
+            'sidebar': {
+                'width': '300px',
+            }
+        }
+    },
+    
+    # Schema customization
+    'PREPROCESSING_HOOKS': ['config.api_schema.preprocessing_filter_spec'],
+    'POSTPROCESSING_HOOKS': ['config.api_schema.postprocessing_hook'],
+    
+    # Security definitions
+    'APPEND_COMPONENTS': {
+        'securitySchemes': {
+            'jwtAuth': {
+                'type': 'http',
+                'scheme': 'bearer',
+                'bearerFormat': 'JWT',
+                'description': 'JWT token obtained from /api/auth/login/',
+            }
+        }
+    },
+    'SECURITY': [{'jwtAuth': []}],
+    
+    # Auto-tag based on app names and custom tags
+    'TAGS': [
+        {'name': 'auth', 'description': '🔐 Authentication - User registration, login, profile management'},
+        {'name': 'products', 'description': '📦 Products - Product catalog, categories, and reviews'},
+        {'name': 'orders', 'description': '� Orders - Order creation, tracking, and history'},
+        {'name': 'core', 'description': '� Core - Shopping cart operations and management'},
+    ],
+    
+    # Enable auto-tagging based on app names
+    'DEFAULT_AUTO_TAG': True,
 }
 
 # CORS Settings

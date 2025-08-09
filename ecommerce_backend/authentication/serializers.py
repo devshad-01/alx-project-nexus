@@ -26,6 +26,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         style={'input_type': 'password'},
         help_text="Confirm your password"
     )
+    username = serializers.CharField(
+        required=False,
+        help_text="Username (will be auto-generated from email if not provided)"
+    )
 
     class Meta:
         model = User
@@ -48,13 +52,14 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def validate_username(self, value):
         """
-        Validate username uniqueness and format
+        Validate username uniqueness and format (if provided)
         """
-        if User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("A user with this username already exists.")
-        
-        if len(value) < 3:
-            raise serializers.ValidationError("Username must be at least 3 characters long.")
+        if value:  # Only validate if username is provided
+            if User.objects.filter(username=value).exists():
+                raise serializers.ValidationError("A user with this username already exists.")
+            
+            if len(value) < 3:
+                raise serializers.ValidationError("Username must be at least 3 characters long.")
         
         return value
 
@@ -84,6 +89,20 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         """
         # Remove password_confirm from validated_data
         validated_data.pop('password_confirm', None)
+        
+        # Auto-generate username from email if not provided
+        if not validated_data.get('username'):
+            email = validated_data['email']
+            base_username = email.split('@')[0]
+            username = base_username
+            counter = 1
+            
+            # Ensure username is unique by adding counter if needed
+            while User.objects.filter(username=username).exists():
+                username = f"{base_username}{counter}"
+                counter += 1
+            
+            validated_data['username'] = username
         
         # Create user with encrypted password
         user = User.objects.create_user(

@@ -8,6 +8,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 from .api_docs import api_documentation_view, api_endpoints_view
 
@@ -18,8 +19,13 @@ api_patterns = [
     path('orders/', include('orders.urls')),
     path('', include('core.urls')),  # Cart and utility endpoints under /api/
     
-    # API Documentation
-    path('docs/', api_documentation_view, name='api_docs'),
+    # API Documentation - drf-spectacular
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    
+    # Legacy API Documentation
+    path('docs-legacy/', api_documentation_view, name='api_docs_legacy'),
     path('endpoints/', api_endpoints_view, name='api_endpoints'),
 ]
 

@@ -18,10 +18,10 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
-            'id', 'name', 'description', 'image_url', 
+            'id', 'name', 'slug', 'description', 
             'is_active', 'product_count', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'product_count']
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at', 'product_count']
 
     def get_product_count(self, obj):
         """
@@ -312,8 +312,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         model = Product
         fields = [
             'name', 'description', 'price', 'category', 'sku',
-            'stock_quantity', 'is_active', 'is_featured', 'weight',
-            'dimensions', 'meta_title', 'meta_description', 'images'
+            'stock_quantity', 'is_active', 'is_featured', 'images'
         ]
 
     def create(self, validated_data):
@@ -351,8 +350,7 @@ class ProductUpdateSerializer(serializers.ModelSerializer):
         model = Product
         fields = [
             'name', 'description', 'price', 'category',
-            'stock_quantity', 'is_active', 'is_featured', 'weight',
-            'dimensions', 'meta_title', 'meta_description'
+            'stock_quantity', 'is_active', 'is_featured'
         ]
 
     def validate_sku(self, value):

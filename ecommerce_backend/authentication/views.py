@@ -18,6 +18,9 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 import logging
 
+from drf_spectacular.utils import extend_schema, OpenApiExample, OpenApiResponse
+from drf_spectacular.openapi import OpenApiTypes
+
 from .serializers import (
     UserRegistrationSerializer,
     UserSerializer,
@@ -42,6 +45,69 @@ class UserRegistrationView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
     permission_classes = [AllowAny]
+    
+    @extend_schema(
+        summary='User Registration',
+        description='''
+        Register a new user account with email and password.
+        
+        **Note**: This endpoint is public and doesn't require authentication.
+        
+        Upon successful registration, the response will include:
+        - User profile information
+        - JWT access token (valid for 1 hour)
+        - JWT refresh token (valid for 7 days)
+        ''',
+        examples=[
+            OpenApiExample(
+                'Registration Example',
+                value={
+                    'email': 'newuser@example.com',
+                    'password': 'SecurePassword123!',
+                    'password_confirm': 'SecurePassword123!',
+                    'first_name': 'John',
+                    'last_name': 'Doe'
+                },
+                request_only=True,
+            ),
+        ],
+        responses={
+            201: OpenApiResponse(
+                description='User registered successfully',
+                examples=[
+                    OpenApiExample(
+                        'Success Response',
+                        value={
+                            'user': {
+                                'id': 1,
+                                'email': 'newuser@example.com',
+                                'first_name': 'John',
+                                'last_name': 'Doe',
+                                'date_joined': '2025-08-09T10:30:00Z'
+                            },
+                            'tokens': {
+                                'access': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...',
+                                'refresh': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...'
+                            },
+                            'message': 'User registered successfully'
+                        }
+                    )
+                ]
+            ),
+            400: OpenApiResponse(
+                description='Validation error',
+                examples=[
+                    OpenApiExample(
+                        'Validation Error',
+                        value={
+                            'email': ['This field is required.'],
+                            'password': ['This password is too common.']
+                        }
+                    )
+                ]
+            )
+        }
+    )
     
     def create(self, request, *args, **kwargs):
         """Create a new user and return tokens"""
