@@ -13,11 +13,21 @@ pip install -r requirements.txt
 # Set Django settings for production
 export DJANGO_SETTINGS_MODULE=config.settings.production
 
-# Collect static files
-python manage.py collectstatic --no-input
+#!/usr/bin/env bash
+# Build script for Render deployment
 
-# Run database migrations in correct order
-python manage.py migrate auth
-python manage.py migrate contenttypes
-python manage.py migrate authentication
-python manage.py migrate --run-syncdb
+# Set Django settings module for production
+export DJANGO_SETTINGS_MODULE=config.settings.production
+
+# Install Python dependencies
+pip install -r ecommerce_backend/requirements.txt
+
+# Collect static files 
+cd ecommerce_backend
+python django_manage.py collectstatic --noinput
+
+# Run migrations in the correct order to handle custom User model
+python django_manage.py migrate auth --noinput
+python django_manage.py migrate contenttypes --noinput  
+python django_manage.py migrate authentication --noinput
+python django_manage.py migrate --run-syncdb --noinput
