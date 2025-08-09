@@ -19,6 +19,39 @@ fi
 # Check if virtual environment exists
 if [ ! -d "$VENV_DIR" ]; then
     echo "❌ Error: Virtual environment not found at $VENV_DIR"
+    echo "Please run setup first."
+    exit 1
+fi
+
+echo "✅ Virtual environment found"
+echo "📁 Changing to backend directory: $BACKEND_DIR"
+
+# Change to backend directory
+cd "$BACKEND_DIR"
+
+echo "🔥 Activating virtual environment..."
+# Activate virtual environment
+source "$VENV_DIR/bin/activate"
+
+echo "✅ Virtual environment activated!"
+echo "🐍 Python path: $(which python)"
+echo "📦 Django version: $(python -m django --version 2>/dev/null || echo 'Django not found')"
+echo "📁 Current directory: $(pwd)"
+echo ""
+echo "🎯 You can now use commands like:"
+echo "   python manage.py runserver"
+echo "   python manage.py migrate"  
+echo "   python manage.py shell"
+echo ""
+echo "💡 To deactivate later, just run: deactivate"
+echo "================================================"
+
+# Export the PS1 to show we're in the activated environment
+export PS1="(venv) \[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
+
+# Start a new bash session with the activated environment
+exec bash
+    echo "❌ Error: Virtual environment not found at $VENV_DIR"
     echo "Please create it first with: python3 -m venv $VENV_DIR"
     exit 1
 fi

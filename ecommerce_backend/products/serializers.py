@@ -150,8 +150,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'name', 'description', 'price', 'discounted_price',
             'category', 'category_name', 'sku', 'stock_quantity',
-            'is_in_stock', 'is_active', 'is_featured', 'weight',
-            'dimensions', 'meta_title', 'meta_description',
+            'is_in_stock', 'is_active', 'is_featured', 'slug',
             'images', 'primary_image', 'reviews', 'average_rating',
             'review_count', 'created_by', 'created_at', 'updated_at'
         ]
@@ -275,8 +274,12 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     def get_average_rating(self, obj):
         """
-        Calculate average rating
+        Use annotated average rating from queryset if available
         """
+        if hasattr(obj, 'annotated_avg_rating') and obj.annotated_avg_rating is not None:
+            return round(float(obj.annotated_avg_rating), 2)
+        
+        # Fallback to manual calculation
         avg = obj.reviews.filter(is_approved=True).aggregate(
             avg_rating=Avg('rating')
         )['avg_rating']
@@ -284,8 +287,12 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     def get_review_count(self, obj):
         """
-        Get review count
+        Use annotated review count from queryset if available
         """
+        if hasattr(obj, 'annotated_review_count'):
+            return obj.annotated_review_count
+            
+        # Fallback to manual count
         return obj.reviews.filter(is_approved=True).count()
 
     def get_is_in_stock(self, obj):
@@ -367,10 +374,10 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
-            'id', 'name', 'description', 'image_url', 'is_active',
+            'id', 'name', 'slug', 'description', 'is_active',
             'product_count', 'products', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at', 'product_count']
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at', 'product_count']
 
     def get_product_count(self, obj):
         """

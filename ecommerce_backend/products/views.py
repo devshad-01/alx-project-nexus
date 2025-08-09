@@ -158,7 +158,7 @@ class ProductListView(generics.ListCreateAPIView):
     """
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['category', 'is_available', 'price']
+    filterset_fields = ['category', 'is_active', 'price']
     search_fields = ['name', 'description', 'category__name']
     ordering_fields = ['name', 'price', 'created_at', 'stock_quantity']
     ordering = ['-created_at']
@@ -168,8 +168,8 @@ class ProductListView(generics.ListCreateAPIView):
         return Product.objects.select_related('category').prefetch_related(
             'images', 'reviews'
         ).filter(is_active=True).annotate(
-            avg_rating=Avg('reviews__rating'),
-            review_count=Count('reviews')
+            annotated_avg_rating=Avg('reviews__rating'),
+            annotated_review_count=Count('reviews')
         )
     
     def get_serializer_class(self):
@@ -194,7 +194,7 @@ class ProductListView(generics.ListCreateAPIView):
             if max_price:
                 queryset = queryset.filter(price__lte=max_price)
             if min_rating:
-                queryset = queryset.filter(avg_rating__gte=min_rating)
+                queryset = queryset.filter(annotated_avg_rating__gte=min_rating)
             
             page = self.paginate_queryset(queryset)
             if page is not None:

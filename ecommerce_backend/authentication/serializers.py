@@ -30,7 +30,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'password', 'password_confirm', 'phone_number', 'date_of_birth'
+            'password', 'password_confirm'
         ]
         extra_kwargs = {
             'password': {'write_only': True},
@@ -90,9 +90,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             password=validated_data['password'],
             first_name=validated_data.get('first_name', ''),
-            last_name=validated_data.get('last_name', ''),
-            phone_number=validated_data.get('phone_number', ''),
-            date_of_birth=validated_data.get('date_of_birth', None)
+            last_name=validated_data.get('last_name', '')
         )
         return user
 
@@ -108,7 +106,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'full_name', 'phone_number', 'date_of_birth', 'age',
+            'full_name', 'age',
             'is_active', 'date_joined', 'last_login'
         ]
         read_only_fields = ['id', 'username', 'date_joined', 'last_login']
@@ -123,12 +121,7 @@ class UserSerializer(serializers.ModelSerializer):
         """
         Calculate user's age from date of birth
         """
-        if obj.date_of_birth:
-            from datetime import date
-            today = date.today()
-            return today.year - obj.date_of_birth.year - (
-                (today.month, today.day) < (obj.date_of_birth.month, obj.date_of_birth.day)
-            )
+        # Since our User model doesn't have date_of_birth, return None
         return None
 
 
