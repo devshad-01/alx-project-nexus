@@ -19,6 +19,7 @@ This e-commerce backend provides a complete solution for managing products, cate
 
 ## 🛠 Technology Stack
 
+### Core Backend
 - **Backend Framework**: Django 5.0 + Django REST Framework 3.15
 - **Database**: PostgreSQL 15+
 - **Authentication**: JWT (djangorestframework-simplejwt)
@@ -26,6 +27,13 @@ This e-commerce backend provides a complete solution for managing products, cate
 - **Caching**: Redis 7+
 - **Testing**: pytest-django
 - **Code Quality**: Black, flake8, isort
+
+### Advanced Features
+- **GraphQL API**: graphene-django for efficient data fetching
+- **Message Queues**: Celery + RabbitMQ for background tasks
+- **CI/CD Pipeline**: GitHub Actions for automated deployment
+- **Real-time Features**: WebSockets for live updates
+- **Full-text Search**: PostgreSQL advanced search capabilities
 
 ## 📋 Prerequisites
 

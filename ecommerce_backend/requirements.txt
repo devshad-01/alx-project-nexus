@@ -12,6 +12,17 @@ django-redis==5.4.0
 celery==5.4.0
 python-decouple==3.8
 
+# Advanced Features
+graphene-django==3.2.2
+django-graphql-jwt==0.4.0
+channels==4.1.0
+channels-redis==4.2.0
+django-extensions==3.2.3
+
+# Background Tasks & Message Queues
+kombu==5.3.7
+billiard==4.2.0
+
 # Development dependencies
 pytest==8.3.2
 pytest-django==4.8.0
