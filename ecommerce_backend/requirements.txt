@@ -8,9 +8,9 @@ django-filter==24.3
 Pillow==10.4.0
 psycopg2-binary==2.9.9
 redis==5.0.8
+python-decouple==3.8
 django-redis==5.4.0
 celery==5.4.0
-python-decouple==3.8
 
 # Advanced Features
 graphene-django==3.2.2
