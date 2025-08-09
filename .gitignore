@@ -62,21 +62,7 @@ migrations/
 mentor_notes/
 review_materials/
 
-# Test scripts and results (development only)
-*test*.py
-test_*.py
-comprehensive_api_test*.py
-quick_test*.py
-api_test_results*.json
-*_test_*.py
-*_backup.py
-*_fixed.py
 
-# Development scripts
-dev.sh
-quick_activate.sh
-setup_aliases.sh
-activate_env.sh
 
 # Django logs and debug files
 django.log

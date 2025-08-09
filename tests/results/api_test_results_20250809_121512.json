@@ -1,0 +1,89 @@
+{
+  "test_run": {
+    "timestamp": "2025-08-09T12:15:12.552484",
+    "base_url": "http://localhost:8000/api",
+    "total_tests": 11,
+    "passed": 7,
+    "failed": 2,
+    "skipped": 2
+  },
+  "test_results": [
+    {
+      "timestamp": "12:15:09",
+      "endpoint": "/schema/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "12:15:09",
+      "endpoint": "/docs/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "12:15:09",
+      "endpoint": "/redoc/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Status: 200"
+    },
+    {
+      "timestamp": "12:15:10",
+      "endpoint": "/auth/register/",
+      "method": "POST",
+      "status": "FAIL",
+      "details": "Status: 500, Response: {\"error\":\"Registration failed due to server error\"}"
+    },
+    {
+      "timestamp": "12:15:11",
+      "endpoint": "/products/categories/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Categories retrieved. Count: 4"
+    },
+    {
+      "timestamp": "12:15:12",
+      "endpoint": "/products/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "Products retrieved. Count: 20"
+    },
+    {
+      "timestamp": "12:15:12",
+      "endpoint": "/products/53/",
+      "method": "GET",
+      "status": "FAIL",
+      "details": "Status: 404"
+    },
+    {
+      "timestamp": "12:15:12",
+      "endpoint": "/core/cart/",
+      "method": "GET",
+      "status": "SKIP",
+      "details": "No auth token available"
+    },
+    {
+      "timestamp": "12:15:12",
+      "endpoint": "/orders/",
+      "method": "GET",
+      "status": "SKIP",
+      "details": "No auth token available"
+    },
+    {
+      "timestamp": "12:15:12",
+      "endpoint": "/non-existent-endpoint/",
+      "method": "GET",
+      "status": "PASS",
+      "details": "404 error handled correctly"
+    },
+    {
+      "timestamp": "12:15:12",
+      "endpoint": "/auth/profile/ (no auth)",
+      "method": "GET",
+      "status": "PASS",
+      "details": "401 unauthorized handled correctly"
+    }
+  ]
+}
