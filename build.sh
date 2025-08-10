@@ -21,3 +21,6 @@ python django_manage.py migrate auth --noinput
 python django_manage.py migrate contenttypes --noinput  
 python django_manage.py migrate authentication --noinput
 python django_manage.py migrate --run-syncdb --noinput
+
+# Create demo superuser for admin access
+python django_manage.py create_demo_superuser
