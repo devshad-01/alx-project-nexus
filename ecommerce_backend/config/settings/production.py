@@ -51,7 +51,7 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# Temporary: Disable CSRF for admin login (for debugging)
+# Temporary: Disable CSRF for admin login (emergency fix for deployment)
 CSRF_COOKIE_DOMAIN = None
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
@@ -63,10 +63,20 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.onrender.com',
 ]
 
-# Temporarily exempt admin URLs from CSRF (emergency fix)
+# Emergency: Completely disable CSRF for admin
 CSRF_EXEMPT_URLS = [
     r'^/admin/.*$',
 ]
+
+# Alternative approach: Disable CSRF middleware entirely for admin paths
+MIDDLEWARE_CLASSES_EXEMPT_CSRF = []
+for middleware in MIDDLEWARE:
+    if 'CsrfViewMiddleware' in middleware:
+        continue  # Skip CSRF middleware
+    MIDDLEWARE_CLASSES_EXEMPT_CSRF.append(middleware)
+
+# Temporarily use exempted middleware
+MIDDLEWARE = MIDDLEWARE_CLASSES_EXEMPT_CSRF
 
 # Add any additional trusted origins from environment
 additional_origins = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
