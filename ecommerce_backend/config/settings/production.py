@@ -73,11 +73,23 @@ additional_origins = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
 if additional_origins and additional_origins[0]:
     CSRF_TRUSTED_ORIGINS.extend(additional_origins)
 
-# CORS for production
+# CORS for production - completely override base settings
 CORS_ALLOW_ALL_ORIGINS = False
+# Explicitly clear any base CORS settings first
+CORS_ALLOWED_ORIGINS = []
+
+# Set production CORS origins with proper scheme
 cors_origins = config('CORS_ALLOWED_ORIGINS', default='')
 if cors_origins:
-    CORS_ALLOWED_ORIGINS = cors_origins.split(',')
+    # Ensure all origins have proper scheme
+    origins = cors_origins.split(',')
+    CORS_ALLOWED_ORIGINS = []
+    for origin in origins:
+        origin = origin.strip()
+        if origin and not origin.startswith(('http://', 'https://')):
+            origin = f'https://{origin}'
+        if origin:
+            CORS_ALLOWED_ORIGINS.append(origin)
 else:
     CORS_ALLOWED_ORIGINS = [
         'https://alx-project-nexus-nb67.onrender.com',
