@@ -127,65 +127,7 @@ alx-project-nexus/
 ![Entity Relationship Diagram](docs/database/ERD.png)
 
 ```
-┌─────────────┐       ┌─────────────┐       ┌─────────────┐
-│    User     │       │  Category   │       │   Product   │
-│─────────────│       │─────────────│       │─────────────│
-│ id (PK)     │   ┌───│ id (PK)     │   ┌───│ id (PK)     │
-│ email       │   │   │ name        │   │   │ name        │
-│ password    │   │   │ description │   │   │ category_id │─┘
-│ first_name  │   │   │ slug        │   │   │ price       │
-│ last_name   │   │   │ is_active   │   │   │ description │
-│ is_staff    │   │   │ created_at  │   │   │ sku         │
-│ is_active   │   │   │ updated_at  │   │   │ stock_qty   │
-│ created_at  │   │   └─────────────┘   │   │ is_active   │
-│ updated_at  │   │                     │   │ created_at  │
-└─────────────┘   │                     │   │ updated_at  │
-        │         │                     │   └─────────────┘
-        │         │                     │           │
-        │   ┌─────────────┐             │           │
-        │   │    Cart     │             │           │
-        │   │─────────────│             │           │
-        └───│ user_id     │             │           │
-            │ created_at  │             │           │
-            │ updated_at  │             │           │
-            └─────────────┘             │           │
-                   │                    │           │
-                   │                    │           │
-            ┌─────────────┐             │           │
-            │  CartItem   │             │           │
-            │─────────────│             │           │
-            │ id (PK)     │             │           │
-            │ cart_id     │─────────────┘           │
-            │ product_id  │─────────────────────────┘
-            │ quantity    │
-            │ created_at  │
-            └─────────────┘
-                   
-        ┌─────────────┐             ┌─────────────┐
-        │    Order    │             │  OrderItem  │
-        │─────────────│             │─────────────│
-        │ id (PK)     │         ┌───│ id (PK)     │
-        │ user_id     │─────────┘   │ order_id    │
-        │ order_number│             │ product_id  │─┐
-        │ total_amount│             │ quantity    │ │
-        │ status      │             │ price       │ │
-        │ ship_address│             │ created_at  │ │
-        │ created_at  │             └─────────────┘ │
-        │ updated_at  │                             │
-        └─────────────┘                             │
-                                                    │
-                            ┌─────────────┐         │
-                            │   Review    │         │
-                            │─────────────│         │
-                            │ id (PK)     │         │
-                            │ user_id     │─────────┘
-                            │ product_id  │─────────┘
-                            │ rating      │
-                            │ comment     │
-                            │ is_verified │
-                            │ created_at  │
-                            └─────────────┘
-```
+
 
 ---
 
