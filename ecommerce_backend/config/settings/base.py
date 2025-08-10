@@ -179,7 +179,7 @@ SIMPLE_JWT = {
 # API Documentation
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ALX Project Nexus E-Commerce API',
-    'DESCRIPTION': 'E-Commerce Backend API',
+    'DESCRIPTION': 'Backend API for E-Commerce platform',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': '/api/',
