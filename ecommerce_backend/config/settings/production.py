@@ -48,7 +48,17 @@ SECURE_HSTS_PRELOAD = True
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS if host != '*']
+
+# CSRF trusted origins - include Render domain
+CSRF_TRUSTED_ORIGINS = [
+    'https://alx-project-nexus-nb67.onrender.com',
+    'https://*.onrender.com',
+]
+
+# Add any additional trusted origins from environment
+additional_origins = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
+if additional_origins and additional_origins[0]:
+    CSRF_TRUSTED_ORIGINS.extend(additional_origins)
 
 # CORS for production
 CORS_ALLOW_ALL_ORIGINS = False
