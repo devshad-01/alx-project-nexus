@@ -1,53 +1,51 @@
-# E-Commerce Backend - ALX Project Nexus
+# Project Nexus - E-Commerce Backend API
 
-A robust Django REST API backend for an e-commerce platform built as part of the ALX ProDev Backend Engineering program.
+A robust, scalable e-commerce backend API built with Django REST Framework, featuring comprehensive product management, user authentication, order processing, and shopping cart functionality.
 
-## 🚀 Project Overview
+## 🚀 Live Demo
+
+- **API Documentation**: [https://alx-project-nexus-nb67.onrender.com/api/docs/](https://alx-project-nexus-nb67.onrender.com/api/docs/)
+- **API Schema**: [https://alx-project-nexus-nb67.onrender.com/api/schema/](https://alx-project-nexus-nb67.onrender.com/api/schema/)
+- **ReDoc Documentation**: [https://alx-project-nexus-nb67.onrender.com/api/redoc/](https://alx-project-nexus-nb67.onrender.com/api/redoc/)
+
+## 🎯 Project Overview
 
 This e-commerce backend provides a complete solution for managing products, categories, user authentication, and order processing. It demonstrates advanced backend development skills including API design, database optimization, and security implementation.
 
 ## ✨ Key Features
 
-- **Product Management**: Full CRUD operations for products and categories
-- **User Authentication**: JWT-based secure authentication system
-- **Advanced Filtering**: Filter products by category, price range, and availability
-- **Sorting & Pagination**: Efficient data retrieval with customizable sorting
-- **Order Management**: Complete order processing workflow
-- **API Documentation**: Comprehensive Swagger/OpenAPI documentation
-- **Performance Optimization**: Database indexing and query optimization
-- **Security**: Input validation, rate limiting, and secure headers
+### Core Functionality
+- **User Management**: Registration, authentication, and profile management
+- **Product Catalog**: Complete CRUD operations for products with categories
+- **Shopping Cart**: Add, update, remove items with persistent storage
+- **Order Management**: Order creation, tracking, and status updates
+- **Authentication**: JWT-based secure authentication system
 
-## 🛠 Technology Stack
+### Technical Features
+- **RESTful API Design**: Clean, intuitive API endpoints
+- **Interactive Documentation**: Swagger/OpenAPI documentation
+- **Database Optimization**: Efficient queries with Django ORM
+- **Security**: CORS handling, secure headers, and authentication
+- **Scalable Architecture**: Modular design for easy extension
 
-### Core Backend
-- **Backend Framework**: Django 5.0 + Django REST Framework 3.15
-- **Database**: PostgreSQL 15+
+## 🛠 Tech Stack
+
+### Backend
+- **Framework**: Django 5.0.8 + Django REST Framework 3.15.2
+- **Database**: PostgreSQL (Production) / SQLite (Development)
 - **Authentication**: JWT (djangorestframework-simplejwt)
-- **Documentation**: drf-spectacular (Swagger/OpenAPI)
-- **Caching**: Redis 7+
-- **Testing**: pytest-django
-- **Code Quality**: Black, flake8, isort
+- **Documentation**: drf-spectacular (OpenAPI/Swagger)
 
-### Advanced Features
-- **GraphQL API**: graphene-django for efficient data fetching
-- **Message Queues**: Celery + RabbitMQ for background tasks
-- **CI/CD Pipeline**: GitHub Actions for automated deployment
-- **Real-time Features**: WebSockets for live updates
-- **Full-text Search**: PostgreSQL advanced search capabilities
+### Deployment & Infrastructure
+- **Hosting**: Render
+- **Database**: Aiven Cloud PostgreSQL
+- **Static Files**: WhiteNoise
+- **Process Management**: Gunicorn
 
-## 📋 Prerequisites
-
-- Python 3.11+
-- PostgreSQL 15+
-- Redis 7+
-- Git
-
-## 🔧 Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd alx_project_nexus/ecommerce_backend
+### Development Tools
+- **Version Control**: Git/GitHub
+- **Code Quality**: Black (formatting), pytest (testing)
+- **Environment Management**: python-decouple
    ```
 
 2. **Create virtual environment**

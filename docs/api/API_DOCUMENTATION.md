@@ -4,7 +4,7 @@
 
 This document provides comprehensive documentation for the E-Commerce Backend API. The API follows RESTful conventions and provides endpoints for user management, product catalog, and order processing.
 
-**Base URL**: `http://localhost:8000/api/`  
+**Base URL**: `https://alx-project-nexus-nb67.onrender.com/api/` (Production) | `http://localhost:8000/api/` (Development)  
 **API Version**: v1  
 **Authentication**: JWT Bearer Token  
 
@@ -542,6 +542,9 @@ Pagination response includes:
 
 ---
 
-**Interactive Documentation**: Visit `http://localhost:8000/api/docs/` for interactive Swagger UI documentation.
+## 📚 Interactive Documentation
 
-**API Schema**: Download the complete API schema at `http://localhost:8000/api/schema/`
+**Production API Documentation**: [https://alx-project-nexus-nb67.onrender.com/api/docs/](https://alx-project-nexus-nb67.onrender.com/api/docs/)  
+**Development API Documentation**: `http://localhost:8000/api/docs/`
+
+**API Schema**: [https://alx-project-nexus-nb67.onrender.com/api/schema/](https://alx-project-nexus-nb67.onrender.com/api/schema/)

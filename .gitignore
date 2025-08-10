@@ -29,12 +29,51 @@ media/
 
 # Environment variables
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+.env.local
+.env.production
+.env.staging
+
+# VS Code
+.vscode/
+.vscode/*
+*.code-workspace
+
+# AI/ML Development files
+.copilot/
+.cursor/
+.continue/
+.aider*
+.codeium/
+*copilot*
+*gpt*
+*claude*
+*ai_*
+*_ai.*
+*.ai
+ai_logs/
+copilot_logs/
+conversation_*.md
+chat_*.txt
+prompt_*.txt
+*_conversation.*
+*_prompt.*
+
+# API test results with timestamps (likely from AI testing)
+api_test_results_*.json
+*test_results*.json
+
+# Development artifacts
+*.bak
+*.orig
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+*.swp
+*.swo
+*~
+.idea/
 
 # IDE
 .vscode/

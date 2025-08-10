@@ -208,8 +208,10 @@ class ProductSerializer(serializers.ModelSerializer):
         """
         Calculate discounted price if applicable
         """
-        # You can implement discount logic here
-        # For now, return the original price
+        # Calculate discounted price based on discount percentage
+        if hasattr(obj, 'discount_percentage') and obj.discount_percentage > 0:
+            discounted_price = obj.price * (1 - obj.discount_percentage / 100)
+            return round(discounted_price, 2)
         return obj.price
 
     def validate_sku(self, value):
