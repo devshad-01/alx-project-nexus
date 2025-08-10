@@ -14,10 +14,19 @@ DATABASE_URL = config('DATABASE_URL', default='')
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
 
-# Static files with WhiteNoise
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-# Add CSRF exemption middleware for admin
-MIDDLEWARE.insert(3, 'config.middleware.CSRFExemptMiddleware')
+# Override MIDDLEWARE completely for production - no CSRF for admin access
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    # Skip CSRF middleware entirely
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -67,16 +76,6 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_EXEMPT_URLS = [
     r'^/admin/.*$',
 ]
-
-# Alternative approach: Disable CSRF middleware entirely for admin paths
-MIDDLEWARE_CLASSES_EXEMPT_CSRF = []
-for middleware in MIDDLEWARE:
-    if 'CsrfViewMiddleware' in middleware:
-        continue  # Skip CSRF middleware
-    MIDDLEWARE_CLASSES_EXEMPT_CSRF.append(middleware)
-
-# Temporarily use exempted middleware
-MIDDLEWARE = MIDDLEWARE_CLASSES_EXEMPT_CSRF
 
 # Add any additional trusted origins from environment
 additional_origins = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
