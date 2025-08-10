@@ -16,6 +16,8 @@ if DATABASE_URL:
 
 # Static files with WhiteNoise
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+# Add CSRF exemption middleware for admin
+MIDDLEWARE.insert(3, 'config.middleware.CSRFExemptMiddleware')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -49,15 +51,21 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# CSRF Configuration for Render
-CSRF_COOKIE_DOMAIN = config('CSRF_COOKIE_DOMAIN', default=None)
-CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF cookie
+# Temporary: Disable CSRF for admin login (for debugging)
+CSRF_COOKIE_DOMAIN = None
+CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
+CSRF_FAILURE_VIEW = 'django.views.csrf.csrf_failure'
 
 # CSRF trusted origins - include Render domain
 CSRF_TRUSTED_ORIGINS = [
     'https://alx-project-nexus-nb67.onrender.com',
     'https://*.onrender.com',
+]
+
+# Temporarily exempt admin URLs from CSRF (emergency fix)
+CSRF_EXEMPT_URLS = [
+    r'^/admin/.*$',
 ]
 
 # Add any additional trusted origins from environment
