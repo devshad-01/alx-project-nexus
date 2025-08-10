@@ -1,4 +1,0 @@
-# This file ensures the results directory is tracked by Git
-# while the actual result files and logs are gitignored.
-# 
-# The directory structure is important for the project organization.

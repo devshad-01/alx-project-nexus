@@ -152,3 +152,48 @@ docs/build/
 *.DS_Store
 .AppleDouble
 .LSOverride
+
+# AI and development artifacts (hide AI usage traces)
+**/ai_context.txt
+**/ai_instructions.txt
+**/ai_prompts.txt
+**/development_notes.txt
+**/todo.txt
+**/NOTES.md
+**/ai_*.txt
+**/copilot_*.txt
+**/gpt_*.txt
+**/claude_*.txt
+**/*_ai_generated*
+**/*_copilot_*
+**/*_gpt_*
+**/*_claude_*
+
+# Test result files that might show AI patterns
+**/api_test_results_*.json
+**/test_results_*.json
+**/comprehensive_test_*.json
+**/api_test_*.json
+
+# Development scripts that might show AI assistance
+**/quick_test_*.py
+**/test_*_quick.py
+**/demo_*.py
+**/temp_*.py
+
+# Documentation drafts and AI-generated content
+**/DRAFT_*.md
+**/draft_*.md
+**/ai_generated_*.md
+**/copilot_*.md
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
