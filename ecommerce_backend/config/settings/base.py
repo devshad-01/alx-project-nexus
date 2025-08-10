@@ -6,7 +6,7 @@ from pathlib import Path
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIresolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-in-production')
@@ -180,36 +180,23 @@ SIMPLE_JWT = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ALX Project Nexus E-Commerce API',
     'DESCRIPTION': '''
-    ## 🛍️ E-Commerce Backend API
+    **Enterprise-grade e-commerce backend API** powering modern online retail operations.
     
-    A comprehensive and modern e-commerce backend API built with Django REST Framework.
+    ## Key Capabilities
+    - **🔐 JWT Authentication** - Secure token-based authentication with refresh tokens
+    - **📦 Product Management** - Complete CRUD operations with categories, search, and filtering  
+    - **� Shopping Cart** - Persistent cart with real-time calculations and inventory tracking
+    - **📋 Order Processing** - Full order lifecycle from creation to fulfillment
+    - **👥 User Management** - Customer accounts, profiles, and role-based permissions
     
-    ### 🚀 Quick Start
+    ## Quick Start
+    1. Register: `POST /api/auth/register/`
+    2. Login: `POST /api/auth/login/` (returns JWT tokens)
+    3. Authenticate: Include `Authorization: Bearer <token>` header
+    4. Start shopping: Browse products, add to cart, place orders
     
-    1. **Register an account** using `/api/auth/register/`
-    2. **Login** with `/api/auth/login/` to get JWT tokens
-    3. **Browse products** and **categories** (public endpoints)
-    4. **Add items to cart** and **place orders** (authenticated)
-    
-    ### 🔐 Authentication
-    
-    Most endpoints require JWT authentication. After login, include the access token in requests:
-    ```
-    Authorization: Bearer <your_access_token>
-    ```
-    
-    ### 📱 API Features
-    
-    - **User Management**: Registration, authentication, profile management
-    - **Product Catalog**: Categories, products with images and reviews
-    - **Shopping Cart**: Add, update, remove items with real-time calculations
-    - **Order Management**: Create orders, track status, view history
-    - **Reviews & Ratings**: Product reviews with approval system
-    
-    ### 🛠️ Response Format
-    
-    All responses follow consistent JSON format with proper HTTP status codes.
-    Validation errors include detailed field-specific messages.
+    ## Response Format
+    All endpoints return structured JSON with consistent error handling and HTTP status codes.
     ''',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,

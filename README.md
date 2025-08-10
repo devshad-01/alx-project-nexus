@@ -123,6 +123,9 @@ alx-project-nexus/
 ```
 
 ### 🗄️ Database Schema (Entity Relationship Design)
+
+![Entity Relationship Diagram](docs/database/ERD.png)
+
 ```
 ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
 │    User     │       │  Category   │       │   Product   │
