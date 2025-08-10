@@ -49,6 +49,11 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+# CSRF Configuration for Render
+CSRF_COOKIE_DOMAIN = config('CSRF_COOKIE_DOMAIN', default=None)
+CSRF_COOKIE_HTTPONLY = False  # Allow JavaScript to read CSRF cookie
+CSRF_USE_SESSIONS = False
+
 # CSRF trusted origins - include Render domain
 CSRF_TRUSTED_ORIGINS = [
     'https://alx-project-nexus-nb67.onrender.com',
