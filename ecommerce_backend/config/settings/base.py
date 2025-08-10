@@ -179,25 +179,7 @@ SIMPLE_JWT = {
 # API Documentation
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ALX Project Nexus E-Commerce API',
-    'DESCRIPTION': '''
-    **Enterprise-grade e-commerce backend API** powering modern online retail operations.
-    
-    ## Key Capabilities
-    - **🔐 JWT Authentication** - Secure token-based authentication with refresh tokens
-    - **📦 Product Management** - Complete CRUD operations with categories, search, and filtering  
-    - **� Shopping Cart** - Persistent cart with real-time calculations and inventory tracking
-    - **📋 Order Processing** - Full order lifecycle from creation to fulfillment
-    - **👥 User Management** - Customer accounts, profiles, and role-based permissions
-    
-    ## Quick Start
-    1. Register: `POST /api/auth/register/`
-    2. Login: `POST /api/auth/login/` (returns JWT tokens)
-    3. Authenticate: Include `Authorization: Bearer <token>` header
-    4. Start shopping: Browse products, add to cart, place orders
-    
-    ## Response Format
-    All endpoints return structured JSON with consistent error handling and HTTP status codes.
-    ''',
+    'DESCRIPTION': 'E-Commerce Backend API',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': '/api/',
