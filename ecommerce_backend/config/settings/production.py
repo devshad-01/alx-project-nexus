@@ -75,7 +75,13 @@ if additional_origins and additional_origins[0]:
 
 # CORS for production
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='').split(',')
+cors_origins = config('CORS_ALLOWED_ORIGINS', default='')
+if cors_origins:
+    CORS_ALLOWED_ORIGINS = cors_origins.split(',')
+else:
+    CORS_ALLOWED_ORIGINS = [
+        'https://alx-project-nexus-nb67.onrender.com',
+    ]
 
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
