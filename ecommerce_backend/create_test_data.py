@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Create test data for ALX Project Nexus demonstration
+Create test data ...dummy daTa
 """
 import os
 import sys
